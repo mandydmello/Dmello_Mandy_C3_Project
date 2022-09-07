@@ -56,4 +56,29 @@ class RestaurantTest {
                 () -> restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ORDERS<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    @Test
+    public void calculate_total_order_cost_should_return_zero_price_when_no_item_is_selected() {
+        assertEquals(0, restaurant.calculateTotalOrderCost());
+    }
+
+    @Test
+    public void calculate_total_order_cost_should_return_correct_price_when_one_item_is_added() {
+        assertEquals(119, restaurant.calculateTotalOrderCost("Sweet corn soup"));
+    }
+
+    @Test
+    public void calculate_total_order_cost_should_return_correct_total_price_when_multiple_items_are_added() {
+        restaurant.addToMenu("Sizzling brownie", 319);
+        assertEquals(119 + 319, restaurant.calculateTotalOrderCost("Sweet corn soup", "Sizzling brownie"));
+    }
+
+    @Test
+    public void calculate_total_order_cost_should_return_correct_price_when_item_is_removed() {
+        restaurant.addToMenu("Sizzling brownie", 319);
+        assertEquals(319 + 119, restaurant.calculateTotalOrderCost("Sizzling brownie", "Sweet corn soup"));
+        assertEquals(319, restaurant.calculateTotalOrderCost("Sizzling brownie"));
+    }
+    //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<ORDERS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
